@@ -20,4 +20,7 @@ VOLUME /usr/local/mycat/conf
 EXPOSE 8066 9066
 EXPOSE 7066
 
+ADD start.sh /usr/local
+WORKDIR /usr/local
+
 ENTRYPOINT ["start.sh"]
