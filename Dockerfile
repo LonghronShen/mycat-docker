@@ -23,4 +23,6 @@ EXPOSE 7066
 ADD start.sh /usr/local
 WORKDIR /usr/local
 
+RUN chmod a+x /usr/local/start.sh
+
 ENTRYPOINT ["start.sh"]
