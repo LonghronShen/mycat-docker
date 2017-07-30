@@ -13,7 +13,7 @@ ADD http://dl.mycat.io/1.6-RELEASE/Mycat-server-1.6-RELEASE-20161028204710-linux
 #download mycat-ef-proxy
 RUN mkdir -p /usr/local/proxy
 ADD https://github.com/LonghronShen/mycat-docker/releases/download/1.6/MyCat-Entity-Framework-Core-Proxy.1.0.0-alpha2-netcore100.tar.gz /usr/local/proxy
-RUN cd /usr/local/proxy && sed -i -e 's#C:\\\\mycat#/usr/local/mycat#g' config.json && echo config.json
+RUN cd /usr/local/proxy && sed -i -e 's#C:\\\\mycat#/usr/local/mycat#g' config.json
 
 VOLUME /usr/local/mycat/conf
 
