@@ -1,4 +1,6 @@
-FROM microsoft/dotnet:1.0.1-runtime
+FROM centos:7 
+RUN echo "root:root" | chpasswd
+RUN yum -y install net-tools
 
 # install java
 ADD http://mirrors.linuxeye.com/jdk/jdk-7u80-linux-x64.tar.gz /usr/local/
@@ -13,18 +15,13 @@ ADD http://dl.mycat.io/1.6-RELEASE/Mycat-server-1.6-RELEASE-20161028204710-linux
 RUN cd /usr/local && tar -zxvf Mycat-server-1.6-RELEASE-20161028204710-linux.tar.gz && ls -lna
 
 #download mycat-ef-proxy
-RUN mkdir -p /usr/local/proxy
-ADD https://github.com/LonghronShen/mycat-docker/releases/download/1.6/MyCat-Entity-Framework-Core-Proxy.1.0.0-alpha2-netcore100.tar.gz /usr/local/proxy
-RUN cd /usr/local/proxy && tar -zxvf MyCat-Entity-Framework-Core-Proxy.1.0.0-alpha2-netcore100.tar.gz && ls -lna && sed -i -e 's#C:\\\\mycat#/usr/local/mycat#g' config.json
+#RUN mkdir -p /usr/local/proxy
+#ADD https://github.com/LonghronShen/mycat-docker/releases/download/1.6/MyCat-Entity-Framework-Core-Proxy.1.0.0-alpha2-netcore100.tar.gz /usr/local/proxy
+#RUN cd /usr/local/proxy && tar -zxvf MyCat-Entity-Framework-Core-Proxy.1.0.0-alpha2-netcore100.tar.gz && ls -lna && sed -i -e 's#C:\\\\mycat#/usr/local/mycat#g' config.json
 
 VOLUME /usr/local/mycat/conf
 
 EXPOSE 8066 9066
-EXPOSE 7066
+#EXPOSE 7066
 
-ADD start.sh /usr/local
-WORKDIR /usr/local
-
-RUN chmod a+x /usr/local/start.sh
-
-ENTRYPOINT ["start.sh"]
+CMD /usr/local/mycat/bin/mycat console
